@@ -5,28 +5,31 @@ written_numbers = ["one","two","three","four","five","six","seven","eight","nine
 
 result = 0
 
+# main loop
 for line in data:
-    line_numbers = {}
     line_temp = line
     
     # Deals with written numbers
+
     for i in range(len(written_numbers)):
-        while line.find(written_numbers[i]) != -1:
-            index = line.find(written_numbers[i])
-            line_numbers[index] = int(numbers[i])
-            line = line[:index] + " " + line[index + 1:]
+        # replace the written number with the first letter of the number the digit + last letter of the number
+        line = line.replace(written_numbers[i], written_numbers[i][0] + numbers[i] + written_numbers[i][-1])
 
-    # Deals with digits
-    for i in range(len(numbers)):
-        while line.find(numbers[i]) != -1:
-            index = line.find(numbers[i])
-            line_numbers[index] = int(numbers[i])
-            line = line[:index] + " " + line[index + 1:]
 
-    # Sorts the dictionary by key
-    line_numbers_sorted = dict(sorted(line_numbers.items()))
-    line_numbers_list = list(line_numbers_sorted.values())
+    # Compute result
 
-    result += line_numbers_list[0] * 10 + line_numbers_list[-1]
+    # add the first number x 10 starting from the left of the line
+    for char in line:
+        if char in numbers:
+            digit = int(char)
+            result += digit * 10
+            break
+
+    # add the first number starting from the right of the line
+    for char in line[::-1]:
+        if char in numbers:
+            digit = int(char)
+            result += digit
+            break
 
 print(result)
