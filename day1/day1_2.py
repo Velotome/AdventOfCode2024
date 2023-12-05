@@ -10,14 +10,11 @@ for line in data:
     line_temp = line
     
     # Deals with written numbers
-
     for i in range(len(written_numbers)):
         # replace the written number with the first letter of the number the digit + last letter of the number
         line = line.replace(written_numbers[i], written_numbers[i][0] + numbers[i] + written_numbers[i][-1])
 
-
     # Compute result
-
     # add the first number x 10 starting from the left of the line
     for char in line:
         if char in numbers:
